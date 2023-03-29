@@ -122,15 +122,29 @@ export interface ThreeDSecureAdditionalInformation {
 
 export interface ThreeDSecureVerifyOptions {
     nonce: string;
-    amount: number;
+    /** This must be expressed in numbers with an optional decimal (using .) 
+     *  and precision up to the hundredths place 
+     */
+    amount: string;
     bin: string;
+    accountType?: 'credit' | 'debit' | undefined;
+    cardAddChallengeRequested?: boolean | undefined;
+    /** @deprecated Use cardAddChallengeRequested instead. */
+    cardAdd?: boolean | undefined;
     challengeRequested?: boolean | undefined;
+    dataOnlyRequested?: boolean | undefined;
+    /** @deprecated Use requestedExemptionType instead. */
     exemptionRequested?: boolean | undefined;
+    requestedExemptionType?: 'low_value' | 'transaction_risk_analysis' | undefined;
+    /** maximum length 255 */
     email?: string | undefined;
+    /** Only numbers; remove dashes, parenthesis and other characters. (maximum length 25) */
     mobilePhoneNumber?: string | undefined;
     billingAddress?: ThreeDSecureBillingAddress | undefined;
     additionalInformation?: ThreeDSecureAdditionalInformation | undefined;
+    /** @deprecated Only to be used for 3DS 1.0 integrations. */
     addFrame?: ((err?: BraintreeError, iframe?: HTMLIFrameElement) => void) | undefined;
+    /** @deprecated Only to be used for 3DS 1.0 integrations. */
     removeFrame?: (() => void) | undefined;
 }
 
